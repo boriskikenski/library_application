@@ -1,0 +1,36 @@
+type Query {
+    getAllBooks: [Book]
+    getBookByTitle(title: String!): Book
+
+    getAuthor(firstName: String!, lastName: String!): Author
+}
+
+type Mutation {
+    createBook(title: String!, genre: Genre, authorsId: [Long]!): Book
+    updateBook(bookId: ID!, title: String!, genre: Genre, authorsId: [Long]!): Book
+    deleteBook(bookId: ID!): Boolean
+
+    createAuthor(firstName: String!, lastName: String!, dateOfBirth: DateTime): Author
+}
+
+type Book {
+    bookId: ID!
+    title: String!
+    genre: Genre
+    authorsId: [Long]
+}
+
+type Author {
+    authorId: ID!
+    firstName: String!
+    lastName: String!
+    dateOfBirth: DateTime
+}
+
+enum Genre {
+    FICTION
+    NONFICTION
+}
+
+scalar DateTime
+scalar Long

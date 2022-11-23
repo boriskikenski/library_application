@@ -10,4 +10,5 @@ public interface AuthorService {
     Author getAuthor(String firstName, String lastName);
     void logTheTopFiveAuthorsNames();
     List<String> getTopFiveAuthors();
+    Author findLastAuthor();
 }

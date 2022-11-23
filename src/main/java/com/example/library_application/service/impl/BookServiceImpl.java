@@ -10,6 +10,7 @@ import com.example.library_application.repositoy.BookRepository;
 import com.example.library_application.service.BookService;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,17 +37,15 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void createBook(String title, Genre genre, List<Long> authorsId) {
-        List<Author> authors = authorsId.stream()
-                .map(authorId -> this.authorRepository.findById(authorId)
-                        .orElseThrow(() -> new AuthorNotFoundException(authorId)))
-                .collect(Collectors.toList());
+        List<Author> authors = getAuthorsFromId(authorsId);
         this.bookRepository.save(new Book(title, genre, authors));
     }
 
     @Override
-    public void updateBook(Long bookId, String title, Genre genre, List<Author> authors) {
+    public void updateBook(Long bookId, String title, Genre genre, List<Long> authorsId) {
         Book book = this.bookRepository.findById(bookId)
                 .orElseThrow(() -> new BookNotFoundException(bookId));
+        List<Author> authors = getAuthorsFromId(authorsId);
 
         book.setTitle(title);
         book.setGenre(genre);
@@ -58,5 +57,28 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(Long bookId) {
         this.bookRepository.deleteById(bookId);
+    }
+
+    @Override
+    public Book findLastBook() {
+        Comparator<Book> comparator = Comparator.comparing(b -> b.getBookId());
+        return this.bookRepository.findAll().stream()
+                .sorted(comparator.reversed())
+                .limit(1)
+                .findFirst().get();
+    }
+
+    @Override
+    public List<Author> getAuthorsFromId(List<Long> authorsId) {
+        return authorsId.stream()
+                .map(authorId -> this.authorRepository.findById(authorId)
+                        .orElseThrow(() -> new AuthorNotFoundException(authorId)))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Book findById(Long bookId) {
+        return this.bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookNotFoundException(bookId));
     }
 }

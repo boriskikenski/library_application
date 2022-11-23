@@ -12,7 +12,7 @@ public class ScheduledTasks {
         this.authorService = authorService;
     }
 
-    @Scheduled(cron = "0 9 * * *")
+    @Scheduled(cron = "0 0 9 * * *")
     public void logTheTopFiveAuthors() {
         this.authorService.logTheTopFiveAuthorsNames();
     }

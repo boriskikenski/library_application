@@ -51,4 +51,13 @@ public class AuthorServiceImpl implements AuthorService {
                 .map(author -> author.getFirstName())
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Author findLastAuthor() {
+        Comparator<Author> comparator = Comparator.comparing(a -> a.getAuthorId());
+        return this.authorRepository.findAll().stream()
+                .sorted(comparator.reversed())
+                .limit(1)
+                .findFirst().get();
+    }
 }

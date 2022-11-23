@@ -10,6 +10,9 @@ public interface BookService {
     List<Book> listAllBooks();
     Book findByTitle(String title);
     void createBook(String title, Genre genre, List<Long> authorsId);
-    void updateBook(Long bookId, String title, Genre genre, List<Author> authors);
+    void updateBook(Long bookId, String title, Genre genre, List<Long> authorsId);
     void deleteBook(Long bookId);
+    Book findLastBook();
+    List<Author> getAuthorsFromId(List<Long> authorsId);
+    Book findById(Long bookId);
 }

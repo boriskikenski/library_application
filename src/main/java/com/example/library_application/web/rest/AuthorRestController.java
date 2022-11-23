@@ -1,4 +1,4 @@
-package com.example.library_application.web;
+package com.example.library_application.web.rest;
 
 import com.example.library_application.model.Author;
 import com.example.library_application.service.AuthorService;

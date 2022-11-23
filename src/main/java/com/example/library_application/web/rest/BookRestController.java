@@ -1,4 +1,4 @@
-package com.example.library_application.web;
+package com.example.library_application.web.rest;
 
 import com.example.library_application.model.Author;
 import com.example.library_application.model.Book;
@@ -38,8 +38,8 @@ public class BookRestController {
     private void updateBook(@RequestParam Long bookId,
                             @RequestParam String title,
                             @RequestParam Genre genre,
-                            @RequestParam List<Author> authors){
-        this.bookService.updateBook(bookId, title, genre, authors);
+                            @RequestParam List<Long> authorsId){
+        this.bookService.updateBook(bookId, title, genre, authorsId);
     }
 
     @PostMapping("/delete-book")
