@@ -16,13 +16,13 @@ public class AuthorRestController {
     }
 
     @GetMapping("by-name")
-    private Author getAuthor(@RequestParam String firstName,
+    public Author getAuthor(@RequestParam String firstName,
                              @RequestParam String lastName){
         return this.authorService.getAuthor(firstName, lastName);
     }
 
     @PostMapping("add-author")
-    private void createAuthor(@RequestParam String firstName,
+    public void createAuthor(@RequestParam String firstName,
                               @RequestParam String lastName,
                               @RequestParam LocalDate dateOfBirth){
         this.authorService.createAuthor(firstName, lastName, dateOfBirth);

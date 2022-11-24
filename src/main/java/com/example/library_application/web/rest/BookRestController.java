@@ -18,24 +18,24 @@ public class BookRestController {
     }
 
     @GetMapping
-    private List<Book> getAllBooks(){
+    public List<Book> getAllBooks(){
         return this.bookService.listAllBooks();
     }
 
     @GetMapping("/by-title")
-    private Book getBookByTitle(String title){
+    public Book getBookByTitle(String title){
         return this.bookService.findByTitle(title);
     }
 
     @PostMapping("/add-book")
-    private void createBook(@RequestParam String title,
+    public void createBook(@RequestParam String title,
                             @RequestParam Genre genre,
                             @RequestParam List<Long> authorsId){
         this.bookService.createBook(title, genre, authorsId);
     }
 
     @PostMapping("/edit-book")
-    private void updateBook(@RequestParam Long bookId,
+    public void updateBook(@RequestParam Long bookId,
                             @RequestParam String title,
                             @RequestParam Genre genre,
                             @RequestParam List<Long> authorsId){
@@ -43,7 +43,7 @@ public class BookRestController {
     }
 
     @PostMapping("/delete-book")
-    private void deleteBook(@RequestParam Long bookId){
+    public void deleteBook(@RequestParam Long bookId){
         this.bookService.deleteBook(bookId);
     }
 }
